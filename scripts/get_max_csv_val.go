@@ -24,12 +24,12 @@ func getMaxFromFirstColumn(File string, csvSep rune) {
 	records, _ := r.ReadAll()
 
 	var intMax int
-	for _, record := range records {
+	for i, record := range records {
 		fmt.Println(record)
 		// Convert the string to int
 		intVal, err := strconv.Atoi(record[0])
 		if err != nil {
-			err = errors.Wrap(err, "Parse failed")
+			err = errors.Wrapf(err, "Failed at %d", i) // just .Wrap if not formatting
 			log.Fatal(err)
 		}
 		// Update if this line contains the greatest value seen so far
